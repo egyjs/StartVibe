@@ -1,195 +1,133 @@
-# StartVibe - AI Agent Instructions
+# GitHub Copilot Repository Instructions
 
-**Project Type:** CLI tool (Node.js ESM) that bootstraps AI-ready documentation templates into any repository.
+> **⚠️ TEMPLATE FILE:** This is a starter template installed by StartVibe. **Customize this file** for your specific project. Replace all `[placeholders]` and examples with your actual project details.
 
----
-
-## Architecture Overview
-
-StartVibe is a **single-script CLI bootstrapper** with zero runtime configuration:
-
-- **Entry:** `bin/start-vibe.js` (executable via `npx start-vibe`)
-- **Core behavior:** Recursively copies `templates/` directory into user's current working directory
-- **Template structure shipped:**
-  - `.ai/` — AI-focused documentation (ARCHITECTURE.md, TICKETS.md, CONVENTIONS.md, ci_cd_instructions.md, features/)
-  - `.github/copilot-instructions.md` — GitHub Copilot guidance for target repos
-
-**Key architectural decision:** Templates are **static markdown files**, not generated/dynamic. The tool is a dumb copier that respects existing files (prompts before overwriting unless `--force`).
+This file provides repository-wide guidance for GitHub Copilot, Cursor, and similar AI assistants working in this codebase.
 
 ---
 
-## Development Workflow
+## Quick Start
 
-### Testing Changes Locally
-```bash
-# Run CLI locally to test template installation
-node bin/start-vibe.js
+**Before making changes, read:**
+1. `/.ai/ARCHITECTURE.md` — system design and component boundaries
+2. `/.ai/TICKETS.md` — current priorities and task backlog
+3. `/.ai/CONVENTIONS.md` — project-specific coding patterns and style
+4. `/.ai/features/*.md` — feature specifications
 
-# Or test in another directory
-cd /path/to/test-repo && node /path/to/StartVibe/bin/start-vibe.js
-```
-
-### Adding/Modifying Templates
-1. Edit files in `templates/.ai/` or `templates/.github/`
-2. Test locally by running the CLI in a throwaway directory
-3. All template files are **copied as-is** — no preprocessing or variable substitution
-
-### Publishing
-```bash
-npm version patch  # or minor/major
-npm publish
-```
+**First Actions (Critical):**
+1. ✅ **Use planning tools:** Run `manage_todo_list` or equivalent to organize work
+2. ✅ **Check for latest docs:** Use `mcp_context7_get-library-docs` or `mcp_web-search_full-web-search` for up-to-date documentation
+3. ✅ **When user requests new features:** Create a ticket in `/.ai/TICKETS.md` FIRST, then implement
 
 ---
 
-## Code Conventions
+## Project Type
 
-### ES Modules (Not CommonJS)
-- All imports use `import`, not `require()`
-- `package.json` has `"type": "module"`
-- Path resolution uses `fileURLToPath(import.meta.url)` instead of `__dirname`
+**[Replace this with your project description in 1-2 sentences]**
 
-### Path Handling (Windows-Compatible)
-- Always use `path.join()` and `path.resolve()` for cross-platform paths
-- Display paths use forward slashes: `toDisplayPath()` converts backslashes
-- `templatesDir`: resolved relative to `bin/` directory (`../templates`)
-- `targetDir`: always `process.cwd()` (user's current directory)
-
-### User Interaction Pattern
-- **Colored output:** Use `chalk` for visual feedback (green ✅, yellow ⚠️, red ✖)
-- **Overwrite prompts:** Ask user Y/N before overwriting existing files (unless `--force`)
-- **Silent mode:** Suppress all logs when `--silent` flag is used
-- **Readline cleanup:** Always close `readline` interface in finally block
+Example: "A Node.js REST API for e-commerce, using Express and PostgreSQL."
 
 ---
 
-## CLI Options
+## Key Conventions
 
-| Flag | Behavior |
-|------|----------|
-| `--force` / `-f` | Skip prompts, overwrite all existing files |
-| `--silent` / `-s` | Suppress informational logs |
+### Code Style
+- Follow patterns documented in `/.ai/CONVENTIONS.md`
+- [Add project-specific quick-reference items here]
+- Example: "Use Prettier + ESLint, run `npm run lint:fix`"
 
-**Note:** `--dry-run` mentioned in original spec but **not yet implemented**.
+### Testing
+- [Describe your testing approach]
+- Example: "Jest for unit tests, BDD-style specs, 80% coverage minimum"
 
----
-
-## Template Content Guidelines
-
-When editing templates (in `templates/`), remember:
-
-- **Templates are MEMIC & EXTENSIBLE:** They're concise starter files that AI agents should customize for their specific projects
-- **Clear template markers:** Each template file starts with `> ⚠️ TEMPLATE:` or `> 📝 TEMPLATE:` to signal it needs customization
-- **Use placeholders in square brackets** for user-specific content: `[YYYY-MM-DD]`, `[project name]`, `[linter name]`
-- **Keep templates short (20-50 lines):** Remove verbose examples, keep only essential structure
-- **Action-oriented instructions:** Each template includes a "🤖 For AI Agents" or "🔧 For AI Agents" section explaining how to customize it
-- **Framework-agnostic:** Templates work for any language/tech stack
-- **Behavior-driven focus:** Feature template emphasizes Given/When/Then BDD syntax
-- **TDD mandatory:** Templates enforce Test-Driven Development - tests must be written before implementation
-- **JIRA-style tickets:** TICKETS.md uses TICKET-XXX numbering with status workflow (Backlog → To Do → In Progress → Done)
-- **AI guardrails:** Templates explicitly instruct AI to NOT add tickets proactively, use up-to-date docs (context7), and use planning tools first
-- **Red-Green-Refactor:** Feature specs include comprehensive test specifications to write before coding
-- **Living documents:** Templates explicitly state they should be expanded/modified as projects grow
-
-**Philosophy:** Templates are **scaffolds**, not rigid checklists. AI agents should feel empowered to adapt, extend, or completely rewrite them for their project's needs.
+### Documentation
+- Update `/.ai/ARCHITECTURE.md` when changing system design
+- Update `/.ai/TICKETS.md` when starting/completing tasks
+- Update `/.ai/CONVENTIONS.md` when establishing new patterns
+- Keep this file current as conventions evolve
 
 ---
 
-## Dependencies
+## AI Workflow
 
-| Package | Purpose |
-|---------|---------|
-| `commander` | CLI argument parsing |
-| `fs-extra` | Promise-based file operations with `ensureDir`, `copyFile` |
-| `chalk` | Terminal color/styling |
-| `readline` | Interactive Y/N prompts |
+### When User Requests New Features
+1. **FIRST:** Create a ticket in `/.ai/TICKETS.md` with proper formatting
+2. Check if detailed spec exists in `/.ai/features/`
+3. If not, create feature spec file: `/.ai/features/YYYY-MM-DD_feature_name.md`
+4. **BEFORE coding:** Write comprehensive test file based on BDD scenarios
+5. Implement the feature to make tests pass
+6. Update ticket status to "Done" when complete
 
-**No build step required** — ships source code directly (Node.js interprets ESM natively).
+### When Implementing Features (TDD Workflow)
+1. Check `/.ai/TICKETS.md` for assigned work
+2. Read feature spec from `/.ai/features/[date]_feature_[name].md`
+3. Use up-to-date documentation (context7, web-search tools) for libraries
+4. **Write comprehensive tests FIRST** based on Given/When/Then scenarios:
+   - Create test file (e.g., `tests/auth.test.js`)
+   - Write tests for ALL scenarios in feature spec
+   - Write tests for edge cases and error conditions
+   - Ensure tests fail (red phase)
+5. Implement code to make tests pass (green phase)
+6. Refactor if needed while keeping tests green
+7. Update ticket status and documentation
 
----
+### When Fixing Bugs
+1. Create ticket in `/.ai/TICKETS.md` (type: Bug)
+2. Write a failing test that reproduces the bug
+3. Fix the code to make the test pass
+4. Verify fix and check for similar patterns
+5. Mark ticket as Done
 
-## File Structure
-
-```
-StartVibe/
-├── bin/start-vibe.js           # Executable entry point (shebang, ESM imports)
-├── templates/                   # Template files to install in target repos
-│   ├── .ai/
-│   │   ├── ARCHITECTURE.md
-│   │   ├── TICKETS.md
-│   │   ├── CONVENTIONS.md
-│   │   ├── ci_cd_instructions.md
-│   │   └── features/[date]_feature_[feature_name].md
-│   └── .github/
-│       └── copilot-instructions.md
-├── package.json                 # "bin": { "start-vibe": "./bin/start-vibe.js" }
-├── README.md                    # End-user documentation
-└── LICENSE                      # MIT license
-```
-
----
-
-## Common Tasks
-
-### Adding a new template file
-1. Create file in `templates/.ai/` or appropriate subdirectory
-2. Use markdown with placeholder syntax `[description]`
-3. Test by running CLI in a test directory
-4. Update this file if it affects developer workflow
-
-### Changing CLI behavior
-- All logic lives in `bin/start-vibe.js` (single file by design)
-- Modify `copyTemplates()` function for copy logic changes
-- Update `program` configuration for new CLI flags
-
-### Fixing Windows path issues
-- Use `path.join()` / `path.resolve()` (never string concatenation)
-- Test on Windows with Git Bash (user's default shell: `bash.exe`)
-- Display paths should use `toDisplayPath()` for consistent forward-slash output
+### When Refactoring
+1. Ensure comprehensive test coverage exists BEFORE refactoring
+2. Make incremental changes
+3. Run tests after each change
+4. Update `/.ai/ARCHITECTURE.md` if design changes
 
 ---
 
 ## Security & Safety
 
-**Never include in templates:**
-- Real API keys or secrets (use `[API_KEY]` placeholders)
-- Personal information
-- Large binary files
+**Never commit:**
+- API keys, passwords, secrets, or credentials
+- [Add project-specific sensitive data types]
 
-**CLI safety:**
-- Always prompts before overwriting unless `--force`
-- Operates only in `process.cwd()` (never touches parent directories)
-- No network calls (completely offline tool)
+**Always:**
+- Validate and sanitize user input
+- [Add project-specific security practices]
 
 ---
 
-## Known Limitations
+## Getting Help
 
-1. **No template variable substitution** — templates are copied verbatim (future: could add project name injection)
-2. **No language detection** — templates are framework-agnostic by design
-3. **No Git integration** — doesn't auto-commit installed files (users commit manually)
-4. **No interactive setup wizard** — all templates installed at once (future: could add selective installation)
-
----
-
-## Testing Checklist Before Release
-
-- [ ] Run CLI in empty directory (fresh install)
-- [ ] Run CLI in directory with existing `.ai/` folder (overwrite prompts work)
-- [ ] Test `--force` flag (no prompts, overwrites all)
-- [ ] Test `--silent` flag (no console output)
-- [ ] Verify paths work on Windows (Git Bash) and Unix
-- [ ] Check templates render correctly after install
+**For requirements:** Check `/.ai/TICKETS.md` or ask the developer  
+**For architecture:** Reference `/.ai/ARCHITECTURE.md`  
+**For conventions:** See `/.ai/CONVENTIONS.md`  
+**For CI/CD:** See `/.ai/ci_cd_instructions.md`  
+**For Framework/library documentation:** Use `mcp_context7_get-library-docs` (context7) or `mcp_web-search_full-web-search` for latest documentation
 
 ---
 
-## Related Documentation
+## 🚨 Critical Rules for AI Agents
 
-- **End-user docs:** `README.md`
-- **Project concept:** `idea.txt` (original brainstorming conversation)
-- **Templates overview:** Browse `templates/.ai/` for installed structure
+1. **Always start with planning:** Use `manage_todo_list` or similar tools before beginning work
+2. **Ticket-first approach:** When user requests new features, create ticket in `/.ai/TICKETS.md` FIRST
+3. **TDD is mandatory:** Write comprehensive tests BEFORE writing implementation code
+4. **No unsolicited tickets:** Only add tickets when explicitly asked by the user
+5. **Use fresh documentation:** Always query up-to-date library docs via context7 or web-search tools
+6. **Update as you go:** Mark ticket statuses, update architecture docs, keep everything current
 
 ---
 
-**Last Updated:** November 1, 2025  
-**Maintained By:** StartVibe contributors
+## 🎯 Customization Guide for AI Agents
+
+**This is a template file — you should:**
+1. Replace all `[placeholders]` with actual project details
+2. Remove irrelevant sections (e.g., if no CI/CD, remove that section)
+3. Add project-specific patterns and conventions
+4. Keep this file **concise and actionable** (aim for 20-50 lines once customized)
+5. Update regularly as the project evolves
+
+**Think of this as a living document** that grows with your project, not a rigid checklist.
+
+---

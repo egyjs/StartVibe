@@ -71,7 +71,7 @@ const askToOverwrite = async (relativePath) => {
   if (batchDecision === 'all') return true;
   if (batchDecision === 'none') return false;
 
-  const prompt = `${chalk.yellow('⚠️')} ${relativePath} already exists. Overwrite? ${chalk.dim('(Y/n/a/s) ')} `;
+  const prompt = `${chalk.yellow('⚠️')} ${relativePath} already exists. Overwrite? ${chalk.dim('(Y/n/a/s) ')} `; // y = yes, n = no, a = all, s = skip
   const interfaceInstance = ensureReadline();
   return new Promise((resolve) => {
     interfaceInstance.question(prompt, (answer) => {
