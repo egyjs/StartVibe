@@ -29,6 +29,12 @@ npx start-vibe [options]
 
 StartVibe will copy the AI template suite into your current directory, prompting before overwriting any existing files.
 
+after running the CLI, you should ask your AI assistant to:
+
+```js
+update `.github/copilot-instructions.md` and `.ai/`
+```
+
 ## License
 
 MIT © StartVibe

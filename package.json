@@ -1,10 +1,10 @@
 {
-  "name": "startvibe",
+  "name": "start-vibe",
   "version": "1.0.0",
   "description": "CLI bootstrapper that installs AI-driven repository templates.",
   "type": "module",
   "bin": {
-    "start-vibe": "./bin/start-vibe.js"
+    "start-vibe": "bin/start-vibe.js"
   },
   "files": [
     "bin",
