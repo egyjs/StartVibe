@@ -196,6 +196,12 @@ const main = async () => {
     if (dryRun) {
       log('');
       log(chalk.blue('ℹ️  This was a dry run. Run without --dry-run to apply changes.'));
+    } else {
+      log('');
+      log(chalk.cyan.bold('📝 Next Steps:'));
+      log(chalk.dim('   After running the CLI, you should ask your AI assistant to:'));
+      log('');
+      log(chalk.yellow('   update `.github/copilot-instructions.md` and `.ai/*`'));
     }
     
     log('');
