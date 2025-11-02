@@ -5,7 +5,7 @@ StartVibe is a zero-config CLI bootstrapper that drops AI-first documentation in
 ## Installation
 
 ```bash
-npm install -g startvibe
+npm install -g start-vibe
 ```
 
 Or use `npx`:
