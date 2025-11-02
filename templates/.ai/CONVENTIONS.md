@@ -52,12 +52,21 @@ Example:
    - **Refactor:** Improve code while keeping tests green
 
 Example:
-- **File naming:** `*.test.js` for unit tests, `*.integration.test.js` for integration
-- **Structure:** Arrange-Act-Assert (Given-When-Then) pattern, one assertion per test
-- **BDD syntax:** Use `describe()` and `test()`/`it()` for clear test descriptions
-- **Mocking:** Mock external services, never mock internal modules
-- **Coverage:** Aim for 100% on critical paths, minimum 80% overall
-- **Test ALL scenarios:** Happy path, error cases, edge cases, boundary conditions
+
+## Language & BDD Framework Mapping
+
+Use your ecosystem's native tools to turn specs into tests:
+
+- PHP → Pest
+- JavaScript/TypeScript → Jest (or Vitest)
+- Python → Behave or pytest-bdd
+- Java → Cucumber-JVM
+- Ruby → RSpec (with Cucumber if desired)
+- C# → SpecFlow
+- Go → Ginkgo
+- Swift → Quick/Nimble
+
+Generated tests belong in your normal test directories (not under `/.ai`).
 
 ---
 
